@@ -285,31 +285,70 @@ $(document).ready(function() {
 
     var setupKeyhandler = function() {
         $(window).keydown(function(event) {
-            switch(event.which) {
+            switch (event.which) {
                 case 37: // left
-                    if(skierDirection === 1) {
-                        skierMapX -= skierSpeed;
-                        placeNewObstacle(skierDirection);
-                    }
-                    else {
-                        skierDirection--;
+                    skierMapX -= skierSpeed;
+                    switch (skierDirection) {
+                        case 0: // crash
+                            skierDirection++;
+                        case 1: // left
+                            placeNewObstacle(skierDirection);
+                            break;
+                        case 2: // left-down
+                            placeNewObstacle(skierDirection);
+                            skierDirection--;
+                            break;
+                        case 5: // right
+                            skierDirection = 1;
+                            placeNewObstacle(skierDirection);
+                            break;
+                        default:
+                            skierDirection = 2;
+                            placeNewObstacle(skierDirection);
                     }
                     event.preventDefault();
                     break;
                 case 39: // right
-                    if(skierDirection === 5) {
-                        skierMapX += skierSpeed;
-                        placeNewObstacle(skierDirection);
-                    }
-                    else {
-                        skierDirection++;
+                    skierMapX += skierSpeed;
+                    switch (skierDirection) {
+                        case 0: // crash
+                            skierDirection = 5;
+                            placeNewObstacle(skierDirection);
+                            break;
+                        case 1: // left
+                            skierDirection = 5;
+                            placeNewObstacle(skierDirection);
+                            break;
+                        case 3: // down
+                            skierDirection++;
+                            placeNewObstacle(skierDirection);
+                            break;
+                        case 4: // right-down
+                            skierDirection++;
+                            placeNewObstacle(skierDirection);
+                            break;
+                        case 5: // right
+                            placeNewObstacle(skierDirection);
+                            break;
+                        default:
+                            skierDirection = 4;
+                            break;
                     }
                     event.preventDefault();
                     break;
                 case 38: // up
-                    if(skierDirection === 1 || skierDirection === 5) {
-                        skierMapY -= skierSpeed;
-                        placeNewObstacle(6);
+                    skierMapY -= skierSpeed;
+                    placeNewObstacle(6);
+                    switch (skierDirection) {
+                        case 1:
+                            break;
+                        case 2:
+                            skierDirection--;
+                            break;
+
+                        default:
+                            skierDirection = 5
+                            break;
                     }
                     event.preventDefault();
                     break;
