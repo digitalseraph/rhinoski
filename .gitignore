@@ -1,3 +1,12 @@
 **/.DS_Store
 .idea
-node_modules
+node_modulesdist/
+node_modules/
+dist/assets/css
+dist/assets/img
+dist/assets/js
+dist/assets
+dist/index.html
+dist/manifest.json
+dist/precache-manifest.06aff0378eb8d09ee83a217be0bdd57b.js
+dist/service-worker.js
