@@ -7,7 +7,18 @@ import * as EventHandler from './event-handler.js'
 
 export class RhinoSki {
     constructor() {
-      this.assetsObj = new Assets.Assets();
+      this.assetsObj = new Assets.Assets({
+        'skierCrash': 'assets/img/skier_crash.png',
+        'skierLeft': 'assets/img/skier_left.png',
+        'skierLeftDown': 'assets/img/skier_left_down.png',
+        'skierDown': 'assets/img/skier_down.png',
+        'skierRightDown': 'assets/img/skier_right_down.png',
+        'skierRight': 'assets/img/skier_right.png',
+        'tree': 'assets/img/tree_1.png',
+        'treeCluster': 'assets/img/tree_cluster.png',
+        'rock1': 'assets/img/rock_1.png',
+        'rock2': 'assets/img/rock_2.png'
+      });
       this.obstaclesObj = new Obstacles.Obstacles();
       this.canvasObj = new Canvas.Canvas();
       this.canvasObj.init()

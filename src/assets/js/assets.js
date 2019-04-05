@@ -11,21 +11,10 @@ import _ from 'lodash';
  * @class Assets
  */
 export class Assets {
-  constructor() {
-    this.assets = {
-      'skierCrash': 'assets/img/skier_crash.png',
-      'skierLeft': 'assets/img/skier_left.png',
-      'skierLeftDown': 'assets/img/skier_left_down.png',
-      'skierDown': 'assets/img/skier_down.png',
-      'skierRightDown': 'assets/img/skier_right_down.png',
-      'skierRight': 'assets/img/skier_right.png',
-      'tree': 'assets/img/tree_1.png',
-      'treeCluster': 'assets/img/tree_cluster.png',
-      'rock1': 'assets/img/rock_1.png',
-      'rock2': 'assets/img/rock_2.png'
-    };
+  constructor(assets) {
+    this.assets = assets;
     this.loaded = [];
-
+    
     this.load = function() {
       let assetPromises = [];
       _.each(this.assets, function(asset, assetName) {

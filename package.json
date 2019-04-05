@@ -2,54 +2,74 @@
   "name": "ceros-ski",
   "version": "0.0.2",
   "description": "",
-  "author": "dan.wash@ceros.com",
-  "license": "",
+  "author": "davidmiller@digitalseraph.com",
+  "license": "ISC",
   "private": true,
+  "keywords": [],
   "sideEffects": false,
   "engines": {
-    "node": "8.4.0"
+    "node": "10.15.*"
   },
   "dependencies": {
+    "dotenv-webpack": "^1.7.0",
     "jquery": "^3.3.1",
     "lodash": "4.17.11"
   },
+  "main": "src/index.js",
   "devDependencies": {
     "@babel/cli": "7.2.0",
-    "@babel/core": "7.2.0",
+    "@babel/core": "^7.4.3",
     "@babel/node": "7.2.0",
-    "@babel/preset-env": "7.2.0",
+    "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "7.0.0",
     "@babel/register": "7.0.0",
+    "babel-jest": "^24.7.1",
     "babel-loader": "8.0.4",
     "babel-preset-es2015": "6.24.1",
     "clean-webpack-plugin": "1.0.0",
     "copy-webpack-plugin": "^5.0.2",
     "css-loader": "2.0.0",
+    "dotenv": "^7.0.0",
+    "eslint": "^5.16.0",
+    "eslint-loader": "^2.1.2",
     "express": "4.16.4",
     "extract-text-webpack-plugin": "4.0.0-beta.0",
     "file-loader": "^2.0.0",
     "html-webpack-harddisk-plugin": "1.0.1",
     "html-webpack-plugin": "3.2.0",
+    "jest": "^24.7.1",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "4.11.0",
+    "nodemon": "^1.18.10",
+    "open-browser-webpack-plugin": "0.0.5",
+    "rimraf": "^2.6.3",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.1",
     "webpack": "4.27.1",
     "webpack-cli": "3.1.2",
+    "webpack-dashboard": "^3.0.2",
     "webpack-dev-middleware": "3.4.0",
     "webpack-dev-server": "^3.2.1",
+    "webpack-jarvis": "^0.3.2",
     "webpack-manifest-plugin": "2.0.4",
     "webpack-merge": "4.1.5",
     "workbox-webpack-plugin": "3.6.3",
     "xml-loader": "1.2.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js --open",
-    "watch": "webpack-dev-server --config webpack.dev.js --open --watch",
-    "server": "node server.js",
-    "dev-server": "node dev-server.js",
-    "dev": "webpack --config webpack.dev.js --watch",
-    "build": "webpack --config webpack.prod.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "NODE_ENV=production webpack --config webpack.prod.js",
+    "dev": "NODE_ENV=development webpack-dev-server --content-base dist --hot",
+    "serve": "NODE_ENV=development webpack-dashboard --color 'bright-blue'  --title='Webpack Dashboard: Prod Server' -- nodemon --open --verbose server.js",
+    "serve:dev": "webpack-dashboard --color 'bright-red' --title='Webpack Dashboard: Dev Server' -- webpack --config webpack.dev.js --watch",
+    "start": "npm run-script build && node server.js --open",
+    "start:dev": "rimraf dist/* && npm run-script build:dev && npm run-script serve:dev:dash",
+    "test": "jest",
+    "debug": "nodemon --inspect dev-server.js"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   }
 }
