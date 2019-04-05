@@ -57,12 +57,11 @@
     "xml-loader": "1.2.1"
   },
   "scripts": {
-    "build": "NODE_ENV=production webpack --config webpack.prod.js",
-    "dev": "NODE_ENV=development webpack-dev-server --content-base dist --hot",
-    "serve": "NODE_ENV=development webpack-dashboard --color 'bright-blue'  --title='Webpack Dashboard: Prod Server' -- nodemon --open --verbose server.js",
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack-dev-server --content-base dist --hot",
+    "serve": "webpack-dashboard --color 'bright-blue'  --title='Webpack Dashboard: Prod Server' -- nodemon --verbose server.js",
     "serve:dev": "webpack-dashboard --color 'bright-red' --title='Webpack Dashboard: Dev Server' -- webpack --config webpack.dev.js --watch",
     "start": "npm run-script build && node server.js --open",
-    "start:dev": "rimraf dist/* && npm run-script build:dev && npm run-script serve:dev:dash",
     "test": "jest",
     "debug": "nodemon --inspect dev-server.js"
   },
