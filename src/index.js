@@ -1,15 +1,19 @@
-import _ from 'lodash';
 import './assets/scss/styles.scss';
 import * as RhinoSki from './assets/js/rhinoski';
 
+/**
+ * Create html component
+ *
+ * @returns HTMLCanvasElement
+ */
 function component() {
   var rhinoSkiObj = new RhinoSki.RhinoSki();
   rhinoSkiObj.init();
-
   return rhinoSkiObj.canvasObj.canvas;
 }
 
-let element = component(); // Store the element to re-render on print.js changes
+/* Create our Rhino Ski game component and add to the webpage */
+let element = component();
 document.body.appendChild(element);
 
 /* Load Service Workers */

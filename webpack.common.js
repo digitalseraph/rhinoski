@@ -1,13 +1,17 @@
 const path = require('path');
 const webpack = require('webpack');
+const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
+const dotEnv = dotenv.parsed;
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
-module.exports = {
+let config = {
   stats: {
     colors: true
   },
@@ -23,6 +27,14 @@ module.exports = {
     publicPath: '/'
   },
   resolve: { extensions: ['.js', '.ts'] },
+  devServer: {
+    compress: true,
+    contentBase: path.join(__dirname, 'dist'),
+    host: dotEnv.PROD_SERVER_HOSTNAME,
+    port: dotEnv.PROD_SERVER_PORT,
+    hot: true,
+    https: false,
+  },
   plugins: [
     new ManifestPlugin(),
     new HtmlWebpackPlugin(
@@ -32,11 +44,10 @@ module.exports = {
       {
         inject: false,
         hash: true,
-        title: 'digitalseraph.com',
-        myPageHeader: 'Hello World',
-        template: './src/assets/templates/index.html',
-        filename: 'index.html',
-        alwaysWriteToDisk: true
+        title: dotEnv.TEMPLATE_TITLE,
+        myPageHeader: dotEnv.TEMPLATE_PAGE_HEADER,
+        template: __dirname + dotEnv.TEMPLATE_PATH + dotEnv.TEMPLATE_FILENAME,
+        filename: './'+dotEnv.TEMPLATE_FILENAME
       }
     ),
     new HtmlWebpackHarddiskPlugin(),
@@ -53,6 +64,13 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'src/assets/img', to: 'assets/img' }
     ]),
+    new Dotenv({
+      path: './.env',
+      safe: false, // load '.env.example' to verify the '.env' variables are all set.
+      systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+      silent: false, // hide any errors
+      defaults: false // load '.env.defaults' as the default values if empty.
+    })
   ],
   module: {
     rules: [
@@ -106,3 +124,5 @@ module.exports = {
     }
   }
 };
+
+module.exports = config;

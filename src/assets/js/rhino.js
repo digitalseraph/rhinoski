@@ -1,10 +1,10 @@
-export class Skier {
+export class Rhino {
   constructor() {
     this.direction = 5;
     this.x = 0;
     this.y = 0;
     this.speed = 8;
-    this.getSkierAsset = function(direction = this.direction) {
+    this.getRhinoAsset = function(direction = this.direction) {
       switch (direction) {
         case 0:
           this.assetName = 'skierCrash';
@@ -26,7 +26,7 @@ export class Skier {
       }
       return this.assetName;
     };
-    this.assetName = this.getSkierAsset();
+    this.assetName = this.getRhinoAsset();
   }
 }
 

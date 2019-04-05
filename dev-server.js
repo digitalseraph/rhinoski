@@ -1,23 +1,26 @@
 const path = require('path');
-const webpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
+const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
+const dotEnv = dotenv.parsed;
+
+const WebpackDevServer = require('webpack-dev-server');
+const DashboardPlugin = require("webpack-dashboard/plugin");
 
 const config = require('./webpack.dev.js');
+const compiler = webpack(config);
+
 const options = {
   contentBase: './dist',
   hot: true,
-  host: 'localhost'
+  host: dotEnv.DEV_SERVER_HOST
 };
 
-webpackDevServer.addDevServerEntrypoints(config, options);
-const compiler = webpack(config);
-const server = new webpackDevServer(compiler, options);
+const server = new WebpackDevServer(compiler, options);
+WebpackDevServer.addDevServerEntrypoints(config, options);
+compiler.apply(new DashboardPlugin());
 
-server.listen(3001, 'localhost', () => {
-  console.log('\n##############################');
-  console.log('##                          ##');
-  console.log('##     App listening on     ##');
-  console.log('##  http://localhost:3001/  ##');
-  console.log('##                          ##');
-  console.log('##############################\n');
+// Serve the files
+server.listen(dotEnv.DEV_SERVER_PORT, dotEnv.DEV_SERVER_HOSTNAME, () => {
+  var msg = 'App listening on: http://' + dotEnv.DEV_SERVER_HOSTNAME + ':' + dotEnv.DEV_SERVER_PORT
+  console.log(msg)
 });

@@ -1,13 +1,21 @@
+const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
+const dotEnv = dotenv.parsed;
+
 const merge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+
 const common = require('./webpack.common.js');
 
-module.exports = merge(common, {
+let config = {
   mode: 'production',
   devtool: 'source-map',
   devServer: {
-    contentBase: './dist',
-    hot: true
+    host: dotEnv.PROD_SERVER_HOSTNAME,
+    port: dotEnv.PROD_SERVER_PORT,
   },
   plugins: [
     new CleanWebpackPlugin(
@@ -20,7 +28,7 @@ module.exports = merge(common, {
       ], {
         root: __dirname,
         verbose: true,
-        dry: false,
+        dry: true,
         exclude: [
           'dist/assets',
           'dist/assets/css',
@@ -29,5 +37,15 @@ module.exports = merge(common, {
         ]
       }
     ),
+    // new OpenBrowserPlugin({
+    //   url: 'http://' + dotEnv.PROD_SERVER_HOSTNAME + ':' + dotEnv.PROD_JARVIS_PORT,
+    //   delay: 1000
+    // }),
+    // new OpenBrowserPlugin({
+    //   url: 'http://' + dotEnv.PROD_SERVER_HOSTNAME + ':' + dotEnv.PROD_SERVER_PORT,
+    //   delay: 1500
+    // }),
   ]
-});
+}
+
+module.exports = merge(common, config);
