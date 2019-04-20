@@ -4,7 +4,7 @@ const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
 const dotEnv = dotenv.parsed;
 
 const WebpackDevServer = require('webpack-dev-server');
-const DashboardPlugin = require("webpack-dashboard/plugin");
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 const config = require('./webpack.dev.js');
 const compiler = webpack(config);

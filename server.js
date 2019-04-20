@@ -4,13 +4,13 @@ const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
 const dotEnv = dotenv.parsed;
 
 const WebpackDevMiddleware = require('webpack-dev-middleware');
-const DashboardPlugin = require("webpack-dashboard/plugin");
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 const app = express();
 const config = require('./webpack.prod.js');
 const compiler = webpack(config);
 
-compiler.apply(new DashboardPlugin());
+compiler.apply(new DashboardPlugin({ port: dotEnv.PROD_SERVER_PORT} ));
 
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js
 // configuration file as a base.

@@ -14,8 +14,21 @@ let config = {
   mode: 'production',
   devtool: 'source-map',
   devServer: {
+    compress: true,
     host: dotEnv.PROD_SERVER_HOSTNAME,
     port: dotEnv.PROD_SERVER_PORT,
+    open: true,
+    hot: true,
+    overlay: {
+      warnings: true,
+      errors: true,
+      info: true
+    },
+    contentBase: path.join(__dirname, 'dist'),
+    watchContentBase: true,
+    watchOptions: {
+      poll: true
+    },
   },
   plugins: [
     new CleanWebpackPlugin(

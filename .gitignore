@@ -22,3 +22,9 @@ dist/precache-manifest.cace78f5096ca8c921a90f37372d6abb.js
 dist/precache-manifest.f9b943dd262a3186e10393d03fa92629.js
 .env
 dist/precache-manifest.90b81e3fa3c8252cb627e1c3b6e27cf8.js
+dist/precache-manifest.5985fe9480d1647d0c98a11f5cf1a238.js
+dist/**/*.js
+dist/**/*.css
+dist/**/*.html
+dist/**/*.json
+dist/**/*.png

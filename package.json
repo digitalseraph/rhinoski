@@ -39,13 +39,13 @@
     "html-webpack-plugin": "3.2.0",
     "jest": "^24.7.1",
     "mini-css-extract-plugin": "^0.5.0",
-    "node-sass": "4.11.0",
+    "node-sass": "^4.11.0",
     "nodemon": "^1.18.10",
     "open-browser-webpack-plugin": "0.0.5",
-    "rimraf": "^2.6.3",
-    "sass-loader": "7.1.0",
+    "sass-loader": "^7.1.0",
+    "shx": "^0.3.2",
     "style-loader": "0.23.1",
-    "webpack": "4.27.1",
+    "webpack": "^4.27.1",
     "webpack-cli": "3.1.2",
     "webpack-dashboard": "^3.0.2",
     "webpack-dev-middleware": "3.4.0",
@@ -58,12 +58,13 @@
   },
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "dev": "webpack-dev-server --content-base dist --hot",
-    "serve": "webpack-dashboard --color 'bright-blue'  --title='Webpack Dashboard: Prod Server' -- nodemon --verbose server.js",
-    "serve:dev": "webpack-dashboard --color 'bright-red' --title='Webpack Dashboard: Dev Server' -- webpack --config webpack.dev.js --watch",
+    "dev": "webpack-dev-server --config webpack.dev.js",
+    "serve": "webpack-dashboard  --title='Webpack Dashboard: Prod Server' -- nodemon --verbose server.js",
+    "serve:dev": "webpack-dashboard --color 'bright-blue' --title='Webpack Dashboard: Dev Server' -- webpack-dev-server --config webpack.dev.js",
     "start": "npm run-script build && node server.js --open",
     "test": "jest",
-    "debug": "nodemon --inspect dev-server.js"
+    "debug": "nodemon --inspect dev-server.js",
+    "clean": "shx rm -fr ./dist && shx echo Done"
   },
   "jest": {
     "moduleNameMapper": {

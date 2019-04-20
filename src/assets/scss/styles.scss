@@ -1,9 +1,174 @@
 @charset "utf-8";
 
 // Import a Google Font
-// @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
+@import url("https://fonts.googleapis.com/css?family=Barrio|Bungee+Inline|Bungee+Shade");
+@import '_variables.scss';
+@import '_animations.scss';
 
-html, body {
-    margin: 0;
-    padding: 0;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  max-height: 100vh;
+  max-width: 100vw;
+  background-color: $default-bg-color;
+  color: $default-font-color;
+  font-family: $default-font;
+  font-size: 12pt;
+
+  .hidden {
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+  }
+  .visuallyhidden {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px; width: 1px;
+    margin: -1px; padding: 0; border: 0;
+  }
+
+  #container {
+    position: relative;
+
+    canvas {
+      position: absolute;
+      z-index: 100;
+    }
+
+    #overlay {
+      margin: 10px;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+      text-align: center;
+      background-color: $overlay-background-color;
+      padding: 10px;
+      border-radius: $overlay-corner-radius;
+      box-shadow: $shadow1;
+      z-index: 500;
+      border: $overlay-border;
+
+      > * {
+        position: relative;
+      }
+
+      .flex-container {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-flow: row wrap;
+        flex-flow: row wrap;
+        max-height: 100vh;
+        max-width: 100vw;
+
+        > * {
+          flex: 1 100%;
+        }
+
+        header {
+          &.header {
+            font-family: $header-font;
+            font-size: $header-font-size;
+            font-weight: $header-font-weight;
+            color: $header-font-color;
+            padding: 10px 0 20px 0;
+            border-bottom: $header-hr;
+          }
+        }
+
+        aside {
+          &.aside {
+            padding: 10px 10px;
+          }
+
+          &.aside1 {
+            order: 2;
+          }
+
+          &.aside2 {
+            background: none;
+          }
+        }
+
+        #navigation {
+          order: 3;
+          nav {
+            font-family: $btn-font;
+            font-weight: $btn-font-size;
+            ul {
+              list-style: none;
+              margin: 0 auto;
+              padding: 0 0;
+              text-align: center;
+              li {
+                width: $btn-width;
+                margin: $btn-margin;
+                padding: $btn-padding;
+                background-color: $btn-bg-color;
+                font-weight: $btn-font-weight;
+                font-size: $btn-font-size;
+                border-radius: $btn-corner-radius;
+                transition: all 0.2s ease 0s;
+
+                &:hover {
+                  background-color: $btn-bg-color-hover;
+                  cursor: pointer;
+
+                  a {
+                    color: $btn-font-color-hover;
+                  }
+                }
+
+                a {
+                  text-decoration: none;
+                  color: $btn-font-color;
+                  width: 250px;
+                }
+              }
+            }
+          }
+        }
+
+        article {
+          background: green;
+          &.main {
+            background: orange;
+          }
+        }
+
+        footer {
+          &.footer {
+            background: $footer-bg-color;
+            color: $footer-font-color;
+            font-family: $footer-font;
+            font-size: $footer-font-size;
+            font-weight: $footer-font-weight;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media all and (min-width: 768px) {
+  .aside {
+    flex: 1 auto;
+  }
+  .main {
+    flex: 3 0px;
+  }
+  .aside1 {
+    order: 1;
+  }
+  .main {
+    order: 2;
+  }
+  .aside2 {
+    order: 3;
+  }
+  .footer {
+    order: 4;
+  }
 }

@@ -16,10 +16,8 @@ let config = {
     colors: true
   },
   entry: {
-    app: [
-      './src/index.js',
-      // './src/assets/scss/styles.scss',
-    ]
+    bundle: './src/index.js',
+    styles: './src/assets/scss/styles.scss',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -29,25 +27,30 @@ let config = {
   resolve: { extensions: ['.js', '.ts'] },
   devServer: {
     compress: true,
-    contentBase: path.join(__dirname, 'dist'),
     host: dotEnv.PROD_SERVER_HOSTNAME,
     port: dotEnv.PROD_SERVER_PORT,
+    open: true,
     hot: true,
-    https: false,
+    overlay: {
+      warnings: true,
+      errors: true,
+      info: true
+    }
   },
   plugins: [
     new ManifestPlugin(),
     new HtmlWebpackPlugin(
       {
-        alwaysWriteToDisk: true
-      },
-      {
-        inject: false,
+        alwaysWriteToDisk: true,
+        inject: true,
         hash: true,
-        title: dotEnv.TEMPLATE_TITLE,
-        myPageHeader: dotEnv.TEMPLATE_PAGE_HEADER,
-        template: __dirname + dotEnv.TEMPLATE_PATH + dotEnv.TEMPLATE_FILENAME,
-        filename: './'+dotEnv.TEMPLATE_FILENAME
+        title: dotEnv.TMPL_INDEX_TITLE,
+        filename: dotEnv.TMPL_INDEX_FILENAME,
+        template: dotEnv.TMPL_PATH_DIR + dotEnv.TMPL_INDEX_FILENAME,
+        pageHeader: dotEnv.TMPL_INDEX_PAGE_HEADER,
+        footer: dotEnv.TMPL_FOOTER_TEXT,
+        favicon: dotEnv.ASSETS_FAVICON,
+        showErrors: true
       }
     ),
     new HtmlWebpackHarddiskPlugin(),
@@ -78,17 +81,14 @@ let config = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [
-            "css-loader",
-            "sass-loader"
-          ]
+          use: [ 'css-loader', 'sass-loader' ]
         })
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader'
         }
       },
       {
@@ -109,6 +109,7 @@ let config = {
           },
         ],
       },
+
     ]
   },
   optimization: {

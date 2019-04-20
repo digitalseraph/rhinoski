@@ -1,25 +1,83 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--[if lt IE 7 ]> <html lang="en" class="ie6" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"<% } %>> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="" <% if(htmlWebpackPlugin.files.manifest) { %> manifest="<%= htmlWebpackPlugin.files.manifest %>"
+  <% } %>>
+<!--<![endif]-->
 
-    <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
-  </head>
-  <body>
-    <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <h1> <%= htmlWebpackPlugin.options.myPageHeader %> </h1>
-    
-    <my-app></my-app>
-    
-    <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title><%= htmlWebpackPlugin.options.title || 'Rhino Ski'%></title>
+  <% if (htmlWebpackPlugin.files.favicon) { %>
+  <link rel="shortcut icon" href="<%= htmlWebpackPlugin.files.favicon%>">
+  <% } %>
+  <% if (htmlWebpackPlugin.options.mobile) { %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <% } %>
+
+  <% for (var css in htmlWebpackPlugin.files.css) { %>
+  <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+  <% } %>
+</head>
+
+<body>
+  <% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
+  <style>
+    .unsupported-browser {
+      display: none;
+    }
+  </style>
+  <div class="unsupported-browser">
+    Sorry, your browser is not supported. Please upgrade to
+    the latest version or switch your browser to use this site.
+    See <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a>
+    for options.
+  </div>
+  <% } %>
+  <div id="container">
+    <div id="overlay" class="fadein">
+      <div class="flex-container">
+        <header class="header">
+          <%= htmlWebpackPlugin.options.pageHeader %>
+        </header>
+
+        <aside class="aside aside1">
+          <p>SkiFree is a top-down freeware computer game created by Chris Pirih and released with Microsoft Entertainment Pack 3
+            in
+            1991. It is a simple game in which the player controls a skier on a mountain slope and avoids obstacles, while also
+            racing against time or performing stunts for points, depending on the game mode. It remains popular among the gaming
+            community as a "killer app" and is often remembered for its Abominable Snow Monster, which pursues the player after
+            they
+            finish a full run.</p>
+        </aside>
+
+        <section id="navigation">
+          <nav>
+            <ul>
+              <li><a href="#" id="start">Start</a></li>
+              <li><a href="#" id="pause">Pause</a></li>
+              <li><a href="#" id="reset">Reset</a></li>
+            </ul>
+          </nav>
+        </section>
+
+        <article class="main">
+        </article>
+
+        <!-- <aside class="aside aside2">Aside 2</aside> -->
+
+        <footer class="footer">
+          <%= htmlWebpackPlugin.options.footer %>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <script src="<%= htmlWebpackPlugin.files.chunks.bundle.entry %>"></script>
+</body>
+
 </html>

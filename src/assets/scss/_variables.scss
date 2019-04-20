@@ -1,0 +1,81 @@
+/**
+ * System Variables
+ *  See the User Changes section to make safe changes
+ */
+// Fonts
+$font-nunito: Nunito, Helvetica, Arial;
+$font-barrio: "Barrio", cursive;
+$font-bungee-inline: "Bungee Inline", cursive;
+$font-bungee-shade: "Bungee Shade", cursive;
+
+// Colors
+$blue: dodgerblue;
+$darkblue: darken(
+  $color: $blue,
+  $amount: 20%
+);
+$white: #ffffff;
+$offwhite: #efefef;
+$grey: grey;
+$darkgrey: darkgrey;
+$darkergrey: #333333;
+$black: #010101;
+
+// Transparent Colors
+$glass: rgba($white, 0.3);
+$blue-glass: rgba($blue, 0.8);
+$darkblue-glass: rgba($darkblue, 0.8);
+$white-glass: rgba($white, 0.8);
+$offwhite-glass: rgba($offwhite, 0.8);
+
+// Overlay
+$overlay-opacity-visible: 50%;
+$overlay-opacity-hidden: 0%;
+$fadein-time: 1.5s;
+$fadeout-time: 2s;
+
+// Shadows
+$shadow1: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+
+/**
+ * User Variables
+ */
+
+// Defaults
+$default-bg-color: $offwhite;
+$default-font-color: $black;
+$default-font: $font-nunito;
+
+// Header
+$header-font: $font-bungee-shade;
+$header-font-size: 5em;
+$header-font-weight: 700;
+$header-font-color: $blue;
+$header-hr: 1rem groove $header-font-color;
+
+// Footer
+$footer-font-color: red;
+$footer-bg-color: none;
+$footer-font: $font-nunito;
+$footer-font-size: 1rem;
+$footer-font-weight: 700;
+$footer-padding: 20px;
+$footer-margin: 10px auto;
+
+// Buttons
+$btn-width: 200px;
+$btn-margin: 10px auto;
+$btn-padding: 10px 50px;
+$btn-corner-radius: 3px;
+$btn-font-weight: normal;
+$btn-font-size: 2rem;
+$btn-font: $font-bungee-inline;
+$btn-font-color: $offwhite-glass;
+$btn-bg-color: $blue;
+$btn-font-color-hover: lighten($btn-font-color, 20);
+$btn-bg-color-hover: darken($btn-bg-color, 10);
+
+// Overlay
+$overlay-background-color: $offwhite-glass;
+$overlay-border: 5px solid lighten($blue, 20);
+$overlay-corner-radius: 3px;

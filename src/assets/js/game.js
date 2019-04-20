@@ -1,12 +1,33 @@
 import $ from 'jquery';
 import _ from 'lodash';
+import { Assets } from './assets.js';
+import { Obstacles } from './obstacles.js';
+import { Canvas } from './canvas.js'
+import { Skier } from './skier.js'
+import { EventHandler } from './event-handler.js'
+import { InputHandler } from './input-handler.js'
+import { UserInterface } from './user-interface.js';
 
 export class Game {
-  constructor(assetsObj, obstaclesObj, canvasObj, skierObj) {
-    this.assetsObj = assetsObj;
-    this.obstaclesObj = obstaclesObj;
-    this.canvasObj = canvasObj;
-    this.skierObj = skierObj;
+  constructor() {
+    this.assetsObj = new Assets({
+      'skierCrash': 'assets/img/skier_crash.png',
+      'skierLeft': 'assets/img/skier_left.png',
+      'skierLeftDown': 'assets/img/skier_left_down.png',
+      'skierDown': 'assets/img/skier_down.png',
+      'skierRightDown': 'assets/img/skier_right_down.png',
+      'skierRight': 'assets/img/skier_right.png',
+      'tree': 'assets/img/tree_1.png',
+      'treeCluster': 'assets/img/tree_cluster.png',
+      'rock1': 'assets/img/rock_1.png',
+      'rock2': 'assets/img/rock_2.png'
+    });
+    this.obstaclesObj = new Obstacles();
+    this.canvasObj = new Canvas();
+    this.skierObj = new Skier();
+    // this.eventHandlerObj = new EventHandler(this);
+    this.inputHandlerObj = new InputHandler(this);
+    this.userInterfaceObj = new UserInterface();
 
     this.calculateOpenPosition = function(minX, maxX, minY, maxY) {
       let x = _.random(minX, maxX);
@@ -16,15 +37,14 @@ export class Game {
       });
       if (foundCollision) {
         return this.calculateOpenPosition(minX, maxX, minY, maxY);
-      }
-      else {
+      } else {
         return {
           x: x,
           y: y
         };
       }
     };
-    
+
     this.placeRandomObstacle = function(minX, maxX, minY, maxY) {
       let obstacleIndex = _.random(0, this.obstaclesObj.obstacleTypes.length - 1);
       let position = this.calculateOpenPosition(minX, maxX, minY, maxY);
@@ -34,6 +54,7 @@ export class Game {
         y: position.y
       });
     };
+
     this.placeNewObstacle = function(direction) {
       let shouldPlaceObstacle = _.random(1, 8);
       if (shouldPlaceObstacle !== 8) {
@@ -64,8 +85,11 @@ export class Game {
         case 6: // up
           this.placeRandomObstacle(leftEdge, rightEdge, topEdge - 50, topEdge);
           break;
+        default:
+          break;
       }
     };
+
     this.moveSkier = function() {
       switch (this.skierObj.direction) {
         case 2:
@@ -81,6 +105,8 @@ export class Game {
           this.skierObj.x += this.skierObj.speed / 1.4142;
           this.skierObj.y += this.skierObj.speed / 1.4142;
           this.placeNewObstacle(this.skierObj.direction);
+          break;
+        default:
           break;
       }
     };
@@ -128,7 +154,7 @@ export class Game {
           top: obstacle.y + obstacleImage.height - 5,
           bottom: obstacle.y + obstacleImage.height
         };
-        let intersectRect = function(r1, r2) {
+        let intersectRect = function (r1, r2) {
           return !(r2.left > r1.right ||
             r2.right < r1.left ||
             r2.top > r1.bottom ||
@@ -155,6 +181,26 @@ export class Game {
         return obstacle.y + obstacleImage.height;
       }.bind(this));
     };
+
+    this.loop = function() {
+      this.canvasObj.ctx.save();
+      this.canvasObj.ctx.scale(window.devicePixelRatio, window.devicePixelRatio); // Retina support
+      this.canvasObj.clearCanvas(this.canvasObj.ctx);
+      this.moveSkier();
+      this.checkIfSkierHitObstacle();
+      this.drawSkier();
+      this.drawObstacles();
+      this.canvasObj.ctx.restore();
+      requestAnimationFrame(this.loop);
+    }.bind(this)
+
+    this.init = function() {
+      this.inputHandlerObj.handleInput();
+      this.assetsObj.load().then(function() {
+        this.placeInitialObstacles();
+        requestAnimationFrame(this.loop);
+      }.bind(this));
+    }
   }
 }
 

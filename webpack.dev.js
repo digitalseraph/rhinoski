@@ -5,8 +5,8 @@ const dotEnv = dotenv.parsed;
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
-const DashboardPlugin = require("webpack-dashboard/plugin");
-const Jarvis = require("webpack-jarvis");
+const DashboardPlugin = require('webpack-dashboard/plugin');
+const Jarvis = require('webpack-jarvis');
 const Dotenv = require('dotenv-webpack');
 
 const common = require('./webpack.common.js');
@@ -15,26 +15,22 @@ let config = {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
+    hot: true,
+    inline: true,
     compress: false,
     host: dotEnv.DEV_SERVER_HOSTNAME,
     port: dotEnv.DEV_SERVER_PORT,
     open: true,
-    noInfo: false,
-    quiet: false,
-    overlay: {
-      warnings: true,
-      errors: true,
-      info: true
-    },
+    contentBase: path.join(__dirname, 'src'),
     watchContentBase: true,
     watchOptions: {
       poll: true
-    }
+    },
 
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new DashboardPlugin(),
+    new DashboardPlugin({ port: dotEnv.DEV_SERVER_PORT }),
     new Jarvis({
       port: dotEnv.DEV_JARVIS_PORT,
       host: dotEnv.DEV_SERVER_HOSTNAME,

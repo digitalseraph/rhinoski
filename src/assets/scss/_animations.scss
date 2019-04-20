@@ -1,0 +1,73 @@
+@keyframes fadein {
+  from { opacity: $overlay-opacity-hidden; }
+  to   { opacity: $overlay-opacity-visible; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: $overlay-opacity-hidden; }
+    to   { opacity: $overlay-opacity-visible; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: $overlay-opacity-hidden; }
+    to   { opacity: $overlay-opacity-visible; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: $overlay-opacity-hidden; }
+    to   { opacity: $overlay-opacity-visible; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: $overlay-opacity-hidden; }
+    to   { opacity: $overlay-opacity-visible; }
+}
+
+@keyframes fadeout {
+  from { opacity: $overlay-opacity-visible; }
+  to   { opacity: $overlay-opacity-hidden; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadeout {
+    from { opacity: $overlay-opacity-visible; }
+    to   { opacity: $overlay-opacity-hidden; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadeout {
+    from { opacity: $overlay-opacity-visible; }
+    to   { opacity: $overlay-opacity-hidden; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadeout {
+    from { opacity: $overlay-opacity-visible; }
+    to   { opacity: $overlay-opacity-hidden; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadeout {
+    from { opacity: $overlay-opacity-visible; }
+    to   { opacity: $overlay-opacity-hidden; }
+}
+
+.fadein {
+  -webkit-animation: fadein $fadein-time; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein $fadein-time; /* Firefox < 16 */
+    -ms-animation: fadein $fadein-time; /* Internet Explorer */
+      -o-animation: fadein $fadein-time; /* Opera < 12.1 */
+        animation: fadein $fadein-time;
+}
+
+.fadout {
+  -webkit-animation: fadeout $fadeout-time; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadeout $fadeout-time; /* Firefox < 16 */
+    -ms-animation: fadeout $fadeout-time; /* Internet Explorer */
+      -o-animation: fadeout $fadeout-time; /* Opera < 12.1 */
+        animation: fadeout $fadeout-time;
+}
