@@ -14,12 +14,17 @@ $darkblue: darken(
   $color: $blue,
   $amount: 20%
 );
+$lightblue: lighten(
+  $color: $blue,
+  $amount: 10%
+);
 $white: #ffffff;
 $offwhite: #efefef;
 $grey: grey;
 $darkgrey: darkgrey;
 $darkergrey: #333333;
 $black: #010101;
+$red: #cc0000;
 
 // Transparent Colors
 $glass: rgba($white, 0.3);
@@ -27,15 +32,6 @@ $blue-glass: rgba($blue, 0.8);
 $darkblue-glass: rgba($darkblue, 0.8);
 $white-glass: rgba($white, 0.8);
 $offwhite-glass: rgba($offwhite, 0.8);
-
-// Overlay
-$overlay-opacity-visible: 50%;
-$overlay-opacity-hidden: 0%;
-$fadein-time: 1.5s;
-$fadeout-time: 2s;
-
-// Shadows
-$shadow1: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 
 /**
  * User Variables
@@ -50,17 +46,17 @@ $default-font: $font-nunito;
 $header-font: $font-bungee-shade;
 $header-font-size: 5em;
 $header-font-weight: 700;
-$header-font-color: $blue;
+$header-font-color: $blue-glass;
 $header-hr: 1rem groove $header-font-color;
 
 // Footer
-$footer-font-color: red;
+$footer-font-color: $lightblue;
 $footer-bg-color: none;
 $footer-font: $font-nunito;
 $footer-font-size: 1rem;
 $footer-font-weight: 700;
-$footer-padding: 20px;
-$footer-margin: 10px auto;
+$footer-padding: 2rem inherit 0.5rem;
+$footer-margin: 2rem auto 0.5rem;
 
 // Buttons
 $btn-width: 200px;
@@ -75,7 +71,44 @@ $btn-bg-color: $blue;
 $btn-font-color-hover: lighten($btn-font-color, 20);
 $btn-bg-color-hover: darken($btn-bg-color, 10);
 
+$sm-btn-width: auto;
+$sm-btn-margin: 4px auto;
+$sm-btn-padding: 4px 10px;
+$sm-btn-corner-radius: 3px;
+$sm-btn-font-weight: normal;
+$sm-btn-font-size: 1.2rem;
+$sm-btn-font: $font-bungee-inline;
+$sm-btn-font-color: $offwhite-glass;
+$sm-btn-bg-color: $blue;
+$sm-btn-font-color-hover: lighten($btn-font-color, 20);
+$sm-btn-bg-color-hover: darken($btn-bg-color, 10);
+
+// Shadows
+$shadow1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+$shadow2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+$shadow3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+$shadow4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+$shadow5: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+
 // Overlay
+$overlay-margin: 1rem;
+$overlay-padding: 1rem;
+$overlay-opacity-visible: 50%;
+$overlay-opacity-hidden: 0%;
 $overlay-background-color: $offwhite-glass;
-$overlay-border: 5px solid lighten($blue, 20);
+$overlay-background-gradient: linear-gradient($offwhite-glass, darken($offwhite-glass, 5%));
+$overlay-background: $overlay-background-gradient;
+$overlay-border: 3px solid $blue-glass;
 $overlay-corner-radius: 3px;
+$overlay-shadow: $shadow5;
+
+$running-overlay-margin: 0.5rem;
+$running-overlay-padding: 0.2rem;
+$running-overlay-border: 2px solid $blue-glass;
+$running-overlay-shadow: $shadow2;
+
+// Transitions
+$fadein-time: 1.5s;
+$fadeout-time: 2s;
+$btn-transition: all 0.5s ease-in-out 0s;
+$overlay-transition: all 0.2s ease 0s;

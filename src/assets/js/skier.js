@@ -5,13 +5,10 @@ export class Skier {
     this.y = 0;
     this.speed = 8;
 
-    this.assetName = this.getSkierAsset();
+    this.assetName = this.getAsset();
   }
 
-
-
-
-  getSkierAsset(direction = this.direction) {
+  getAsset(direction = this.direction) {
     switch (direction) {
       case 0:
         this.assetName = 'skierCrash';

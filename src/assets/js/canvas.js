@@ -4,13 +4,6 @@ export class Canvas {
   constructor(gameWidth = window.innerWidth, gameHeight = window.innerHeight) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
-    // this.canvas = $('<canvas></canvas>')
-    //   .attr('width', this.gameWidth * window.devicePixelRatio)
-    //   .attr('height', this.gameHeight * window.devicePixelRatio)
-    //   .css({
-    //     width: this.gameWidth + 'px',
-    //     height: this.gameHeight + 'px'
-    //   });
     this.canvas = document.createElement('canvas');
     this.canvas.width = this.gameWidth * window.devicePixelRatio;
     this.canvas.height = this.gameHeight * window.devicePixelRatio;
@@ -18,7 +11,6 @@ export class Canvas {
     this.canvas.style.height = this.gameHeight + 'px';
 
     this.ctx = null
-
 
     this.clearCanvas = function(ctx) {
       this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);

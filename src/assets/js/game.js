@@ -4,9 +4,9 @@ import { Assets } from './assets.js';
 import { Obstacles } from './obstacles.js';
 import { Canvas } from './canvas.js'
 import { Skier } from './skier.js'
-import { EventHandler } from './event-handler.js'
 import { InputHandler } from './input-handler.js'
 import { UserInterface } from './user-interface.js';
+import { GameState } from './game-state.js';
 
 export class Game {
   constructor() {
@@ -25,9 +25,9 @@ export class Game {
     this.obstaclesObj = new Obstacles();
     this.canvasObj = new Canvas();
     this.skierObj = new Skier();
-    // this.eventHandlerObj = new EventHandler(this);
     this.inputHandlerObj = new InputHandler(this);
-    this.userInterfaceObj = new UserInterface();
+    this.gameStateObj = new GameState(this);
+    this.userInterfaceObj = new UserInterface(this.gameStateObj);
 
     this.calculateOpenPosition = function(minX, maxX, minY, maxY) {
       let x = _.random(minX, maxX);
@@ -93,30 +93,35 @@ export class Game {
     this.moveSkier = function() {
       switch (this.skierObj.direction) {
         case 2:
-          this.skierObj.x -= Math.round(this.skierObj.speed / 1.4142);
-          this.skierObj.y += Math.round(this.skierObj.speed / 1.4142);
+          this.skierObj.x -= Math.round(this.skierObj.speed / this.gameStateObj.speed);
+          this.skierObj.y += Math.round(this.skierObj.speed / this.gameStateObj.speed);
+          this.gameStateObj.distance += Math.round(this.skierObj.speed);
           this.placeNewObstacle(this.skierObj.direction);
           break;
         case 3:
           this.skierObj.y += this.skierObj.speed;
+          this.gameStateObj.distance += Math.round(this.skierObj.speed);
           this.placeNewObstacle(this.skierObj.direction);
           break;
         case 4:
-          this.skierObj.x += this.skierObj.speed / 1.4142;
-          this.skierObj.y += this.skierObj.speed / 1.4142;
+          this.skierObj.x += this.skierObj.speed / this.gameStateObj.speed;
+          this.skierObj.y += this.skierObj.speed / this.gameStateObj.speed;
+          this.gameStateObj.distance += Math.round(this.skierObj.speed);
           this.placeNewObstacle(this.skierObj.direction);
           break;
         default:
           break;
       }
     };
+
     this.drawSkier = function() {
-      let skierAssetName = this.skierObj.getSkierAsset();
+      let skierAssetName = this.skierObj.getAsset();
       let skierImage = this.assetsObj.loaded[skierAssetName];
       let x = (this.canvasObj.gameWidth - skierImage.width) / 2;
       let y = (this.canvasObj.gameHeight - skierImage.height) / 2;
       this.canvasObj.ctx.drawImage(skierImage, x, y, skierImage.width, skierImage.height);
     };
+
     this.drawObstacles = function() {
       let newObstacles = [];
       _.each(this.obstaclesObj.obstacles, function(obstacle) {
@@ -138,7 +143,7 @@ export class Game {
         r2.bottom < r1.top);
     };
     this.checkIfSkierHitObstacle = function() {
-      let skierAssetName = this.skierObj.getSkierAsset();
+      let skierAssetName = this.skierObj.getAsset();
       let skierImage = this.assetsObj.loaded[skierAssetName];
       let skierRect = {
         left: this.skierObj.x + this.canvasObj.gameWidth / 2,
@@ -185,11 +190,15 @@ export class Game {
     this.loop = function() {
       this.canvasObj.ctx.save();
       this.canvasObj.ctx.scale(window.devicePixelRatio, window.devicePixelRatio); // Retina support
-      this.canvasObj.clearCanvas(this.canvasObj.ctx);
-      this.moveSkier();
-      this.checkIfSkierHitObstacle();
-      this.drawSkier();
-      this.drawObstacles();
+      if (this.gameStateObj.paused === false) {
+        this.canvasObj.clearCanvas(this.canvasObj.ctx);
+        this.moveSkier();
+        this.checkIfSkierHitObstacle();
+        this.drawSkier();
+        this.drawObstacles();
+        this.gameStateObj.updatePlayerScore();
+      }
+      this.userInterfaceObj.updateUI(this.gameStateObj);
       this.canvasObj.ctx.restore();
       requestAnimationFrame(this.loop);
     }.bind(this)

@@ -5,16 +5,12 @@ import { Game }  from './assets/js/game';
 var game = new Game();
 game.init();
 
-// Get the canvas as an HTMLCanvasElement
-var gameComponent = game.canvasObj.canvas;
-
-// Add the components to the container div
+var gameComponent = game.canvasObj.canvas; // Get the canvas as an HTMLCanvasElement
 var container = document.getElementById('container');
-container.appendChild(gameComponent);
-
-// Set the  overlay to show menu
 var overlay = document.getElementById('overlay');
-game.userInterfaceObj.hide(overlay);
+
+// Add the components and overlay to the container div
+container.appendChild(gameComponent);
 
 
 

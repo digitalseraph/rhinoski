@@ -3,8 +3,10 @@
 // Import a Google Font
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
 @import url("https://fonts.googleapis.com/css?family=Barrio|Bungee+Inline|Bungee+Shade");
-@import '_variables.scss';
-@import '_animations.scss';
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+@import "_variables.scss";
+@import "_animations.scss";
 
 html,
 body {
@@ -26,8 +28,11 @@ body {
     position: absolute;
     overflow: hidden;
     clip: rect(0 0 0 0);
-    height: 1px; width: 1px;
-    margin: -1px; padding: 0; border: 0;
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
   }
 
   #container {
@@ -39,17 +44,25 @@ body {
     }
 
     #overlay {
-      margin: 10px;
+      margin: $overlay-margin;
+      padding: $overlay-padding;
       position: absolute;
       left: 50%;
       transform: translate(-50%, 0);
       text-align: center;
       background-color: $overlay-background-color;
-      padding: 10px;
+      background: $overlay-background;
       border-radius: $overlay-corner-radius;
-      box-shadow: $shadow1;
+      box-shadow: $overlay-shadow;
       z-index: 500;
       border: $overlay-border;
+
+      &.running {
+        margin: $running-overlay-margin;
+        padding: $running-overlay-padding;
+        border: $running-overlay-border;
+        box-shadow: $running-overlay-shadow;
+      }
 
       > * {
         position: relative;
@@ -67,84 +80,172 @@ body {
           flex: 1 100%;
         }
 
-        header {
-          &.header {
-            font-family: $header-font;
-            font-size: $header-font-size;
-            font-weight: $header-font-weight;
-            color: $header-font-color;
-            padding: 10px 0 20px 0;
-            border-bottom: $header-hr;
-          }
-        }
-
-        aside {
-          &.aside {
-            padding: 10px 10px;
+        &#intro-overlay {
+          header {
+            &.header {
+              font-family: $header-font;
+              font-size: $header-font-size;
+              font-weight: $header-font-weight;
+              color: $header-font-color;
+              padding: 10px 0 20px 0;
+              border-bottom: $header-hr;
+              text-shadow: $shadow1 !important;
+            }
           }
 
-          &.aside1 {
-            order: 2;
+          aside {
+            &.aside {
+              padding: 10px 10px;
+            }
+
+            &.aside1 {
+              order: 2;
+            }
+
+            &.aside2 {
+              background: none;
+            }
           }
 
-          &.aside2 {
-            background: none;
+          article {
+            background: green;
+            &.main {
+              background: orange;
+            }
           }
-        }
 
-        #navigation {
-          order: 3;
-          nav {
-            font-family: $btn-font;
-            font-weight: $btn-font-size;
-            ul {
-              list-style: none;
-              margin: 0 auto;
-              padding: 0 0;
-              text-align: center;
-              li {
-                width: $btn-width;
-                margin: $btn-margin;
-                padding: $btn-padding;
-                background-color: $btn-bg-color;
-                font-weight: $btn-font-weight;
-                font-size: $btn-font-size;
-                border-radius: $btn-corner-radius;
-                transition: all 0.2s ease 0s;
+          footer {
+            &.footer {
+              padding: $footer-padding;
+              margin: $footer-margin;
+              background: $footer-bg-color;
+              color: $footer-font-color;
+              font-family: $footer-font;
+              font-size: $footer-font-size;
+              font-weight: $footer-font-weight;
+            }
+          }
 
-                &:hover {
-                  background-color: $btn-bg-color-hover;
-                  cursor: pointer;
+          #navigation {
+            order: 3;
+            nav {
+              font-family: $btn-font;
+              font-weight: $btn-font-weight;
+              ul {
+                list-style: none;
+                margin: 0 auto;
+                padding: 0 0;
+                li {
+                  display: inline-block;
+                  width: auto;
+                  margin: $btn-margin;
+                  padding: 0;
+                  background-color: $btn-bg-color;
+                  font-weight: $btn-font-weight;
+                  font-size: $btn-font-size;
+                  border-radius: $btn-corner-radius;
+                  transition: $btn-transition;
+                  box-shadow: $shadow1;
 
                   a {
-                    color: $btn-font-color-hover;
+                    display: inline-block;
+                    width: $btn-width;
+                    margin: 0;
+                    padding: $btn-padding;
+                    color: $btn-font-color;
+                    text-decoration: none;
                   }
-                }
 
-                a {
-                  text-decoration: none;
-                  color: $btn-font-color;
-                  width: 250px;
+                  &:hover {
+                    cursor: pointer;
+                    background-color: $btn-bg-color-hover;
+                    text-decoration: none;
+                    box-shadow: $shadow2;
+
+                    a {
+                      color: $btn-font-color-hover;
+                      text-decoration: none;
+                    }
+                  }
                 }
               }
             }
           }
         }
 
-        article {
-          background: green;
-          &.main {
-            background: orange;
-          }
-        }
+        &#running-overlay {
+          transition: $overlay-transition;
+          display: block;
+          width: 50vw;
 
-        footer {
-          &.footer {
-            background: $footer-bg-color;
-            color: $footer-font-color;
-            font-family: $footer-font;
-            font-size: $footer-font-size;
-            font-weight: $footer-font-weight;
+          &:hover {
+            opacity: 1;
+            transition: $overlay-transition;
+          }
+
+          #navigation {
+            nav {
+              font-family: $sm-btn-font;
+              font-weight: $sm-btn-font-weight;
+              ul {
+                list-style: none;
+                margin: 0 auto;
+                padding: 0 0;
+                text-align: center;
+                li {
+                  display: inline-block;
+                  width: $sm-btn-width;
+                  margin: $sm-btn-margin;
+                  padding: $sm-btn-padding;
+                  background-color: $sm-btn-bg-color;
+                  font-weight: $sm-btn-font-weight;
+                  font-size: $sm-btn-font-size;
+                  border-radius: $sm-btn-corner-radius;
+                  transition: all 0.2s ease 0s;
+                  color: $sm-btn-font-color-hover;
+
+                  &:hover {
+                    background-color: $sm-btn-bg-color-hover;
+                    cursor: pointer;
+
+                    a {
+                      color: $sm-btn-font-color-hover;
+                    }
+                  }
+
+                  a {
+                    text-decoration: none;
+                    color: $sm-btn-font-color;
+                    width: 250px;
+                  }
+                }
+              }
+            }
+          }
+
+          #score {
+            order: 3;
+            ul {
+              list-style: none;
+              margin: 0 0;
+              padding: 0 0;
+              text-align: center;
+              li {
+                display: inline-block;
+                width: 40%;
+                margin: 0;
+                padding: 0;
+                font-weight: $sm-btn-font-weight;
+                color: $darkblue;
+                font-size: 0.8rem;
+                transition: all 0.2s ease 0s;
+                flex: 1 33.33%;
+
+                strong {
+                  text-decoration: underline;
+                }
+              }
+            }
           }
         }
       }

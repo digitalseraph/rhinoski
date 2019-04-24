@@ -26,21 +26,14 @@
 
 <body>
   <% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
-  <style>
-    .unsupported-browser {
-      display: none;
-    }
-  </style>
-  <div class="unsupported-browser">
-    Sorry, your browser is not supported. Please upgrade to
-    the latest version or switch your browser to use this site.
-    See <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a>
-    for options.
-  </div>
+  <style> .unsupported-browser { display: none; } </style>
+  <div class="unsupported-browser"> Sorry, your browser is not supported. Please upgrade to the latest version or switch your browser to use this site. See <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a> for options. </div>
   <% } %>
+
   <div id="container">
     <div id="overlay" class="fadein">
-      <div class="flex-container">
+
+      <div id="intro-overlay" class="flex-container">
         <header class="header">
           <%= htmlWebpackPlugin.options.pageHeader %>
         </header>
@@ -58,9 +51,7 @@
         <section id="navigation">
           <nav>
             <ul>
-              <li><a href="#" id="start">Start</a></li>
-              <li><a href="#" id="pause">Pause</a></li>
-              <li><a href="#" id="reset">Reset</a></li>
+              <li id="startBtn"><a href="#">Start</a></li>
             </ul>
           </nav>
         </section>
@@ -74,6 +65,28 @@
           <%= htmlWebpackPlugin.options.footer %>
         </footer>
       </div>
+
+      <div id="running-overlay" class="flex-container">
+
+        <section id="navigation">
+          <nav>
+            <ul>
+              <li id="pauseBtn"><i class="material-icons">pause_circle_outline</i></li>
+              <li id="resetBtn"><i class="material-icons">restore_page</i></li>
+            </ul>
+          </nav>
+        </section>
+
+        <section id="score">
+          <ul class="flex-container">
+            <li><strong>Distance Traveled</strong><br><span id="distance-traveled">0</span> ft</li>
+            <li><strong>Current Score</strong><br><span id="current-score">0</span> pts</li>
+            <li><strong>High Score</strong><br><span id="high-score">0</span> pts</li>
+          </ul>
+        </section>
+
+      </div>
+
     </div>
   </div>
 
