@@ -244,6 +244,11 @@ body {
                 strong {
                   text-decoration: underline;
                 }
+
+                #current-score {
+                  color: $red;
+                  font-weight: bold;
+                }
               }
             }
           }

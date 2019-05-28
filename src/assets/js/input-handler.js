@@ -7,6 +7,7 @@ import {
   MoveDownCommand
 } from './command/move';
 import { PauseCommand } from './command/pause';
+import { JumpCommand } from './command/jump';
 
 /**
  * InputHandler class
@@ -21,6 +22,7 @@ export class InputHandler {
     this.up = new MoveUpCommand(this.gameObj.skierObj);
     this.down = new MoveDownCommand(this.gameObj.skierObj);
     this.p = new PauseCommand(this.gameObj);
+    this.space = new JumpCommand(this.gameObj.skierObj);
 
     this.handleInput = function() {
       $(window).keydown(function(event) {
@@ -40,6 +42,10 @@ export class InputHandler {
             case 37:
               this.left.execute();
               this.gameObj.placeNewObstacle(this.gameObj.skierObj.direction);
+              event.preventDefault();
+              break;
+            case 32:
+              this.space.execute();
               event.preventDefault();
               break;
             case 39:
